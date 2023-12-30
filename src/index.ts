@@ -1,1 +1,1 @@
-export * from './query-builder.ts';
+export * from './select-query.ts';
