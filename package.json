@@ -1,28 +1,36 @@
 {
-  "name": "@njs-lib/query-builder",
-  "version": "1.0.1",
-  "author": "njs-lib",
+  "name": "@njs-lib/select-query",
+  "description": "Library for flexible querying and manipulation of object collections.",
+  "version": "1.0.0",
+  "author": "Ievgen Golovachev",
   "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "homepage": "https://github.com/njs-lib/query-builder#readme",
+  "homepage": "https://github.com/gskynex/select-query#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/njs-lib/query-builder.git"
+    "url": "https://github.com/gskynex/select-query.git"
   },
   "bugs": {
-    "url": "https://github.com/njs-lib/query-builder/issues"
+    "url": "https://github.com/gskynex/select-query/issues"
   },
   "files": [
     "dist/**/*"
   ],
   "keywords": [
-    "query",
-    "query-builder",
     "builder",
-    "utils",
-    "js",
-    "javascript"
+    "data-filtering",
+    "data-manipulation",
+    "data-processing",
+    "data-querying",
+    "flexible-querying",
+    "object-collection",
+    "object-manipulation",
+    "query-builder",
+    "query-language",
+    "typescript",
+    "typescript-library",
+    "utility"
   ],
   "publishConfig": {
     "access": "public"

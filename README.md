@@ -1,89 +1,49 @@
-# @njs-lib/query-builder
+## @njs-lib/select-query
 
-## Purpose
+### Overview
 
-The main purpose of the QueryBuilder library is to streamline the process of working with collections of objects by offering a set of convenient methods that allow you to perform common operations efficiently. Whether you need to extract specific properties, filter data, paginate results, or perform other data-related tasks, the QueryBuilder library can help simplify your code and improve code readability.
+The library provides a flexible and powerful set of tools for querying and manipulating collections of objects in TypeScript. Whether you need to filter, paginate, or perform complex queries, this library offers an intuitive interface and extensive features.
 
-## Features
+**Features**
 
-- Efficient Querying: Simplify data querying and filtering for arrays of objects.
-- Data Manipulation: Perform common data manipulation tasks, such as property selection and summation.
-- Pagination: Implement pagination for large datasets with ease.
-- Type Safety: Ensure robust and safe data operations.
+- Construct queries with a variety of comparison operators.
+- Easily manipulate and filter object collections based on specific criteria.
+- Perform data manipulation operations on collections.
+- Calculate sums, select specific properties, and group elements by key.
+- Implement pagination with methods to limit and offset the collection.
+- Benefit from type safety and enhanced code completion when using TypeScript.
 
-## Installation
+### Installation
 
 You can install the library using npm.
 
-Using npm:
+#### Using npm:
 
 ```shell
-npm install @njs-lib/query-builder --save
+npm install @njs-lib/select-query --save
 ```
 
-## QueryBuilder Class
+For more information on using `npm` check out the docs [here](https://docs.npmjs.com/cli/v10/commands/npm-install).
 
-The **QueryBuilder** provides utility methods for querying and manipulating collections of objects.
+### SelectQuery Class
 
-### Constructor
+The **SelectQuery** provides utility methods for querying and manipulating collections of objects.
 
-#### `new QueryBuilder()`
+#### Constructor
 
-Creates a new QueryBuilder instance with the given collection.
+##### `new SelectQuery([])`
 
-- `collection`: An array of objects to be used for querying.
+Creates a new instance of SelectQuery with the provided collection.
 
-### Methods
+- @param `collection`: An array of objects to be used for querying.
+
+#### Methods
 
 #### `first(): T | undefined`
 
 Gets the first element of the collection.
 
-#### `last(): T | undefined`
-
-Gets the last element of the collection.
-
-#### `get(): T[]`
-
-Gets all elements in the collection.
-
-#### `count(): number`
-
-Gets the number of elements in the collection.
-
-#### `limit(limit: number): QueryBuilder<T>`
-
-Limits the number of objects in the collection to a specified maximum.
-
-#### `offset(offset: number): QueryBuilder<T>`
-
-Offsets the collection by a specified number of objects.
-
-#### `paginate(pageNumber: number, pageSize: number): QueryBuilder<T>`
-
-Paginates the collection based on a page number and page size.
-
-#### `where(key: keyof T, operator: ComparisonOperator, value: unknown): QueryBuilder<T>`
-
-Filters the collection based on a specified condition.
-
-#### `sum(key: keyof T): number`
-
-Calculates the sum of the values for a specified property in the collection.
-
-#### `select<K extends keyof T>(...keys: K[]): QueryBuilder<Pick<T, K>>`
-
-Selects specific properties from each object in the collection and returns a new QueryBuilder instance.
-
-#### `keyBy<K extends keyof T>(key: K): Record<T[K]), T>`
-
-Groups elements in a collection based on a specified key.
-
-### Example
-
-```javascript
-import { QueryBuilder } from '@njs-lib/query-builder';
-
+```js
 const data = [
   { id: 1, name: 'Jak', age: 30 },
   { id: 2, name: 'Bob', age: 25 },
@@ -91,53 +51,267 @@ const data = [
   { id: 4, name: 'Sam', age: 20 },
 ];
 
-new QueryBuilder(data).count();
-// Output: 3
+const result = new SelectQuery(data).first();
 
-new QueryBuilder(data).first();
-// Output:
-// { id: 1, name: 'Jak', age: 30 }
-
-new QueryBuilder(data).last();
-// Output:
-// { id: 4, name: 'Sam', age: 20 },
-
-new QueryBuilder(data).get();
-// Output: 
-// [
-//   { id: 1, name: 'Jak', age: 30 },
-//   { id: 2, name: 'Bob', age: 25 },
-//   { id: 3, name: 'Tom', age: 20 },
-//   { id: 4, name: 'Sam', age: 20 },
-// ]
-
-new QueryBuilder(data).limit(2).get();
-// Output: 
-// [
-//   { id: 1, name: 'Jak', age: 30 },
-//   { id: 2, name: 'Bob', age: 25 },
-// ]
-
-new QueryBuilder(data).paginate(2, 2).get();
-// Output: 
-// [
-//   { id: 3, name: 'Tom', age: 20 },
-//   { id: 4, name: 'Sam', age: 20 },
-// ]
-
-new QueryBuilder(data).where('age', '=', 20).sum('age');
-// Output: 40
-
-new QueryBuilder(data).where('age', '=', 20).select('name').get();
-// Output: 
-// [{ name: 'Tom' }, { name: 'Sam' }]
-
-new QueryBuilder(data).where('age', '=', 20).keyBy('id');
-// Output: 
-// {
-//   1: { id: 1, name: 'Jak', age: 30 },
-//   2: { id: 2, name: 'Bob', age: 25 },
-//   3: { id: 3, name: 'Tom', age: 20 },
-//   4: { id: 4, name: 'Sam', age: 20 },
-// }
+// RESULT { id: 1, name: 'Jak', age: 30 };
 ```
+
+#### `last(): T | undefined`
+
+Gets the last element of the collection.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).last();
+
+// RESULT { id: 4, name: 'Sam', age: 20 };
+```
+
+#### `get(): T[]`
+
+Gets all elements in the collection.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).last();
+
+/* RESULT
+[
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+]; 
+*/
+```
+
+#### `count(): number`
+
+Gets the number of elements in the collection.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).count();
+
+// RESULT 4
+```
+
+#### `limit(limit: number): SelectQuery<T>`
+
+Limits the number of objects in the collection to a specified maximum.
+
+- @param `limit` The maximum number of objects to include in the collection
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).limit(2).get();
+
+/* RESULT 
+[
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+]
+*/
+```
+
+#### `offset(offset: number): SelectQuery<T>`
+
+Offsets the collection by a specified number of objects.
+
+- @param `offset` The number of objects to skip from the beginning of the collection.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).offset(2).get();
+
+/* RESULT 
+[
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+]
+*/
+```
+
+#### `paginate(num: number, size: number): SelectQuery<T>`
+
+Paginates the collection based on a page number and page size.
+
+- @param `num` The page number (1-based).
+- @param `size` The number of objects per page.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).paginate(2, 2).get();
+
+/* RESULT 
+[
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+]
+*/
+```
+
+#### `sum(key: K): number`
+
+Calculates the sum of the values for a specified property in the collection.
+
+- @param `key` The property key whose values are to be summed up.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).where('age', '===', 20).sum('age');
+
+// RESULT 40
+```
+
+#### `select(...keys: K[]): SelectQuery<Pick<T, K>>`
+
+Selects specific properties from each object in the collection and returns a new SelectQuery instance.
+
+- @param `keys` The keys (properties) to select.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).select('name').get();
+
+/* RESULT
+[
+  { name: 'Jak' },
+  { name: 'Bob' },
+  { name: 'Tom' },
+  { name: 'Sam' },
+];
+*/
+```
+
+#### `keyBy(key: K): Record<T[K]), T>`
+
+Groups elements in a collection based on a specified key.
+
+- @param `key` The key (property name) by which to group elements.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).keyBy('id');
+
+/* RESULT
+{
+  1: { id: 1, name: 'Jak', age: 30 },
+  2: { id: 2, name: 'Bob', age: 25 },
+  3: { id: 3, name: 'Tom', age: 20 },
+  4: { id: 4, name: 'Sam', age: 20 },
+};
+*/
+```
+
+#### `where(key: K, operator: Operator, value: T[K]): SelectQuery<T>`
+
+Filters the collection based on a specified condition.
+
+- @param `key` The key (property name) to compare.
+- @param `operator` The comparison operator.
+- @param `value` The value to compare against.
+
+```js
+const data = [
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+  { id: 3, name: 'Tom', age: 20 },
+  { id: 4, name: 'Sam', age: 20 },
+];
+
+const result = new SelectQuery(data).where('id', '===', 1).get();
+
+// RESULT [{ id: 1, name: 'Jak', age: 30 }];
+
+const result = new SelectQuery(data).where('age', '>', 20).get();
+
+/* RESULT
+[
+  { id: 1, name: 'Jak', age: 30 },
+  { id: 2, name: 'Bob', age: 25 },
+];
+*/
+```
+
+#### `static getOperators(): Operator[]`
+
+Returns an array of valid operators for comparisons.
+
+```js
+new SelectQuery.getOperators();
+
+// RESULT ['===', '!==', '<', '<=', '>', '>=', 'like', '^like', 'like$'];
+```
+
+### Comparison operators
+
+| Value   | Description                                                                            |
+|---------|----------------------------------------------------------------------------------------|
+| `===`   | Checks if the specified property of an item is equal to a given value.                 |
+| `!==`   | Checks if the specified property of an item is not equal to a given value.             |
+| `<`     | Checks if the specified property of an item is less than a given value.                |
+| `<=`    | Checks if the specified property of an item is less than or equal to a given value.    |
+| `>`     | Checks if the specified property of an item is greater than a given value.             |
+| `>=`    | Checks if the specified property of an item is greater than or equal to a given value. |
+| `like`  | Checks if the specified property of value contains the given value                     |
+| `^like` | Checks if the specified property of value starts with the given value.                 |
+| `like$` | Checks if the specified property of value ends with the given value.                   |
+
+### License
+
+Released under the terms of the [MIT License](LICENSE).
